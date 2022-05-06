@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    username: root
+    password: ${MYSQL_ROOT_PASSWORD}
+    url: jdbc:mysql://database-server:3306/snowball-user?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&&allowMultiQueries=true

@@ -1,0 +1,57 @@
+version: '3'
+services:
+  database-server:
+    container_name: database-server
+    hostname: database-server
+    image: mysql:${MYSQL_VERSION}
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./server/database/conf.d:/etc/mysql/conf.d
+      - ./server/database/initdb.d:/docker-entrypoint-initdb.d
+      - ./server/database/.tmp/datadir:/var/lib/mysql
+      - ./server/database/.tmp/logs:/var/log/mysql
+    ports:
+    - 3306:3306
+
+  nacos-server:
+    container_name: nacos-server
+    hostname: nacos-server
+    image: nacos/nacos-server:${NACOS_VERSION}
+    restart: always
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+    volumes:
+      - ./server/nacos/.tmp/logs/:/home/nacos/logs
+      - ./server/nacos/.tmp/init.d/custom.properties:/home/nacos/init.d/custom.properties
+    ports:
+      - 8848:8848
+      - 9848:9848
+
+  gateway:
+    container_name: gateway
+    hostname: gateway
+    image: snowball/gateway
+    depends_on:
+      - nacos-server
+    build:
+      context: ./gateway
+    restart: always
+    ports:
+      - 8080:8080
+#
+  user-service:
+    container_name: user-service
+    hostname: user-service
+    image: snowball/user-service
+    depends_on:
+      - database-server
+      - nacos-server
+    build:
+      context: ./service/user/user-service
+    restart: always
+    ports:
+      - 9001:9001
