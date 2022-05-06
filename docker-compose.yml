@@ -20,16 +20,26 @@ services:
     container_name: nacos-server
     hostname: nacos-server
     image: nacos/nacos-server:${NACOS_VERSION}
+    depends_on:
+      - database-server
     restart: always
     environment:
       - PREFER_HOST_MODE=hostname
       - MODE=standalone
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=database-server
+      - MYSQL_SERVICE_DB_NAME=nacos_config
+      - MYSQL_SERVICE_PORT=3306
+      - MYSQL_SERVICE_USER=root
+      - MYSQL_SERVICE_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false
     volumes:
       - ./server/nacos/.tmp/logs/:/home/nacos/logs
       - ./server/nacos/.tmp/init.d/custom.properties:/home/nacos/init.d/custom.properties
     ports:
       - 8848:8848
       - 9848:9848
+      - 9555:9555
 
   gateway:
     container_name: gateway
@@ -42,13 +52,12 @@ services:
     restart: always
     ports:
       - 8080:8080
-#
+
   user-service:
     container_name: user-service
     hostname: user-service
     image: snowball/user-service
     depends_on:
-      - database-server
       - nacos-server
     build:
       context: ./service/user/user-service
