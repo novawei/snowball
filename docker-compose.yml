@@ -7,6 +7,7 @@ services:
     restart: always
     environment:
       - TZ=Asia/Shanghai
+      - MYSQL_ROOT_HOST=%
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
       - ./server/database/conf.d:/etc/mysql/conf.d

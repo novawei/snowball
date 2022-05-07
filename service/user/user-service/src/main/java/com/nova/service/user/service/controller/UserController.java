@@ -1,5 +1,6 @@
 package com.nova.service.user.service.controller;
 
+import com.nova.service.user.api.entity.User;
 import com.nova.service.user.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/test")
-    public String test() {
-       return "hello";
+    public User test() {
+       User user = userService.getById(1);
+       return user;
     }
 }

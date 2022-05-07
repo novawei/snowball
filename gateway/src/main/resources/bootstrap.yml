@@ -9,5 +9,4 @@ spring:
         server-addr: nacos-server:8848
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
-server:
-  port: 8080
+        file-extension: yml
