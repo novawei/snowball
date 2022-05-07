@@ -28,9 +28,9 @@ public class UserController {
 
     @PublicGetMapping("/{id}")
     public ApiResult<UserVo> getUserVoById(@PathVariable Long id) {
-       User user = userService.getById(id);
-       System.out.println(user);
-       UserVo userVo = BeanUtils.convert(user, UserVo.class);
-       return ApiResult.ok(userVo);
+        User user = userService.getById(id);
+        System.out.println(user);
+        UserVo userVo = BeanUtils.convert(user, UserVo.class);
+        return ApiResult.ok(userVo);
     }
 }

@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Documented
 @RequestMapping(
         method = {RequestMethod.GET},
-        headers = {FromType.NOT_FROM_GATEWAY}
+        headers={FromType.NOT_FROM_GATEWAY}
 )
 public @interface ProtectedGetMapping {
     @AliasFor(
@@ -33,11 +33,6 @@ public @interface ProtectedGetMapping {
             annotation = RequestMapping.class
     )
     String[] params() default {};
-
-    @AliasFor(
-            annotation = RequestMapping.class
-    )
-    String[] headers() default {};
 
     @AliasFor(
             annotation = RequestMapping.class

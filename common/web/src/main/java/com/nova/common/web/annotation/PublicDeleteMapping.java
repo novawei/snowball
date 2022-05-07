@@ -37,11 +37,6 @@ public @interface PublicDeleteMapping {
     @AliasFor(
             annotation = RequestMapping.class
     )
-    String[] headers() default {};
-
-    @AliasFor(
-            annotation = RequestMapping.class
-    )
     String[] consumes() default {};
 
     @AliasFor(
