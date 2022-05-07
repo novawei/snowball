@@ -2,18 +2,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>service</artifactId>
+    <artifactId>uac-api</artifactId>
     <version>0.0.1</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <parent>
-        <artifactId>snowball</artifactId>
+        <artifactId>uac</artifactId>
         <groupId>com.nova</groupId>
         <version>0.0.1</version>
     </parent>
 
-    <modules>
-        <module>uac</module>
-    </modules>
-
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+    </dependencies>
 </project>

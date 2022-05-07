@@ -1,0 +1,13 @@
+server:
+  port: 9001
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    username: root
+    password: ly112233
+    url: jdbc:mysql://database-server:3306/snowball_uac?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&&allowMultiQueries=true
+mybatis-plus:
+  global-config:
+    db-config:
+      tablePrefix: t_

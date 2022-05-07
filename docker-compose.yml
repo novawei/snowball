@@ -54,14 +54,14 @@ services:
     ports:
       - 8080:8080
 
-  user-service:
-    container_name: user-service
-    hostname: user-service
-    image: snowball/user-service
+  uac-service:
+    container_name: uac-service
+    hostname: uac-service
+    image: snowball/uac-service
     depends_on:
       - nacos-server
     build:
-      context: ./service/user/user-service
+      context: ./service/uac/uac-service
     restart: always
     ports:
       - 9001:9001
