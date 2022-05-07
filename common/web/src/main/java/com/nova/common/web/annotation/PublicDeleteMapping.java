@@ -1,5 +1,6 @@
 package com.nova.common.web.annotation;
 
+import com.nova.common.web.header.XOrigin;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,7 +12,7 @@ import java.lang.annotation.*;
 @Documented
 @RequestMapping(
         method = {RequestMethod.DELETE},
-        headers = {FromType.FROM_GATEWAY}
+        headers = {XOrigin.FILTER_GATEWAY}
 )
 public @interface PublicDeleteMapping {
     @AliasFor(
