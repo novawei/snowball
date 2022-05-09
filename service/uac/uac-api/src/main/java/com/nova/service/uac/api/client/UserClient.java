@@ -9,5 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "uac-service", path = "/uac/users")
 public interface UserClient {
     @ProtectedV1GetMapping("/{id}")
-    User getUserById(@PathVariable Long id);
+    User getUserById(@PathVariable("id") Long id);
+
+    @ProtectedV1GetMapping("/exception")
+    User getUserThrowException();
 }

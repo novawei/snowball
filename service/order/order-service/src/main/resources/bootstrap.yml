@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: @profiles.active@
+  application:
+    name: order-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos-server:8848
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yml

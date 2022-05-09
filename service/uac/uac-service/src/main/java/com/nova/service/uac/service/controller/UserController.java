@@ -20,15 +20,26 @@ public class UserController {
     private UserService userService;
 
     @ProtectedV1GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public User getUserById(@PathVariable("id") Long id) {
         User user = userService.getById(id);
         System.out.println("V1");
         System.out.println(user);
         return user;
     }
 
+    @ProtectedV1GetMapping("/exception")
+    public User getUserThrowException() {
+        throw new RuntimeException("user not exists");
+    }
+
+
+    /**
+     * 不同API版本例子
+     * @param id
+     * @return
+     */
     @ProtectedV2GetMapping("/{id}")
-    public User v2_getUserById(@PathVariable Long id) {
+    public User v2_getUserById(@PathVariable("id") Long id) {
         User user = userService.getById(id);
         System.out.println("V2");
         System.out.println(user);
@@ -36,7 +47,7 @@ public class UserController {
     }
 
     @PublicV1GetMapping("/{id}")
-    public ApiResult<UserVo> getUserVoById(@PathVariable Long id) {
+    public ApiResult<UserVo> getUserVoById(@PathVariable("id") Long id) {
         User user = userService.getById(id);
         System.out.println(user);
         UserVo userVo = BeanUtils.convert(user, UserVo.class);

@@ -25,6 +25,11 @@ services:
       - database-server
     restart: always
     environment:
+      # - JVM_XMS=200m
+      # - JVM_XMX=200m
+      # - JVM_XMN=100m
+      # - JVM_MS=16m
+      # - JVM_MMS=48m
       - PREFER_HOST_MODE=hostname
       - MODE=standalone
       - SPRING_DATASOURCE_PLATFORM=mysql
@@ -65,3 +70,15 @@ services:
     restart: always
     ports:
       - 9001:9001
+
+  order-service:
+    container_name: order-service
+    hostname: order-service
+    image: snowball/order-service
+    depends_on:
+      - nacos-server
+    build:
+      context: ./service/order/order-service
+    restart: always
+    ports:
+      - 9003:9003
