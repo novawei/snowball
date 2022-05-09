@@ -1,5 +1,6 @@
-package com.nova.common.web.annotation;
+package com.nova.common.web.annotation.mapping.v2;
 
+import com.nova.common.web.header.XApiVersion;
 import com.nova.common.web.header.XOrigin;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,10 +12,10 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @RequestMapping(
-        method = {RequestMethod.DELETE},
-        headers = {XOrigin.FILTER_NOT_GATEWAY}
+        method = {RequestMethod.PUT},
+        headers = {XOrigin.FILTER_FEIGN, XApiVersion.FILTER_V2}
 )
-public @interface ProtectedDeleteMapping {
+public @interface ProtectedV2PutMapping {
     @AliasFor(
             annotation = RequestMapping.class
     )

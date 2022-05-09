@@ -1,5 +1,6 @@
-package com.nova.common.web.annotation;
+package com.nova.common.web.annotation.mapping.v1;
 
+import com.nova.common.web.header.XApiVersion;
 import com.nova.common.web.header.XOrigin;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,10 +12,10 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @RequestMapping(
-        method = {RequestMethod.GET},
-        headers = {XOrigin.FILTER_NOT_GATEWAY}
+        method = {RequestMethod.POST},
+        headers = {XOrigin.FILTER_GATEWAY, XApiVersion.FILTER_V1}
 )
-public @interface ProtectedGetMapping {
+public @interface PublicV1PostMapping {
     @AliasFor(
             annotation = RequestMapping.class
     )

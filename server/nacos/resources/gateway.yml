@@ -1,2 +1,10 @@
 server:
   port: 8080
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: uac-service
+          uri: lb://uac-service
+          predicates:
+          - Path=/uac/**
