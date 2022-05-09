@@ -1,6 +1,7 @@
 package com.nova.service.uac.service.controller;
 
 import com.nova.common.web.annotation.mapping.v1.ProtectedV1GetMapping;
+import com.nova.common.web.annotation.mapping.v1.ProtectedV1PostMapping;
 import com.nova.common.web.annotation.mapping.v1.PublicV1GetMapping;
 import com.nova.common.web.annotation.mapping.v2.ProtectedV2GetMapping;
 import com.nova.service.uac.api.entity.User;
@@ -8,6 +9,7 @@ import com.nova.service.uac.api.entity.UserVo;
 import com.nova.service.uac.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.nova.common.core.api.ApiResult;
@@ -25,6 +27,11 @@ public class UserController {
         System.out.println("V1");
         System.out.println(user);
         return user;
+    }
+
+    @ProtectedV1PostMapping
+    public void saveUser(@RequestBody User user) {
+        userService.save(user);
     }
 
     @ProtectedV1GetMapping("/exception")
@@ -53,4 +60,5 @@ public class UserController {
         UserVo userVo = BeanUtils.convert(user, UserVo.class);
         return ApiResult.ok(userVo);
     }
+
 }
