@@ -25,11 +25,11 @@ services:
       - database-server
     restart: always
     environment:
-      # - JVM_XMS=200m
-      # - JVM_XMX=200m
-      # - JVM_XMN=100m
-      # - JVM_MS=16m
-      # - JVM_MMS=48m
+      - JVM_XMS=200m
+      - JVM_XMX=200m
+      - JVM_XMN=100m
+      - JVM_MS=64m
+      - JVM_MMS=128m
       - PREFER_HOST_MODE=hostname
       - MODE=standalone
       - SPRING_DATASOURCE_PLATFORM=mysql

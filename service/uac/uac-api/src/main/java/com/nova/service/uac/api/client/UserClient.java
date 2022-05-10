@@ -3,6 +3,7 @@ package com.nova.service.uac.api.client;
 import com.nova.common.web.annotation.mapping.v1.ProtectedV1GetMapping;
 import com.nova.common.web.annotation.mapping.v1.ProtectedV1PostMapping;
 import com.nova.common.web.annotation.mapping.v1.ProtectedV1PutMapping;
+import com.nova.common.web.annotation.mapping.v1.PublicV1GetMapping;
 import com.nova.service.uac.api.entity.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,6 @@ public interface UserClient {
     @ProtectedV1PutMapping
     void updateById(@RequestBody User user);
 
-    @ProtectedV1GetMapping("/exception")
+    @PublicV1GetMapping("/hello/exception")
     User getUserThrowException();
 }

@@ -1,5 +1,7 @@
 package com.nova.service.order.service.controller;
 
+import com.nova.common.core.api.ApiCode;
+import com.nova.common.core.exception.ApiBusinessException;
 import com.nova.common.web.annotation.mapping.v1.PublicV1GetMapping;
 import com.nova.common.web.annotation.mapping.v1.PublicV1PostMapping;
 import com.nova.service.order.api.entity.Order;
@@ -24,6 +26,9 @@ public class OrderController {
     @PublicV1PostMapping
     public void createOrder(@RequestBody Order order) {
         User user = userClient.getById(order.getUserId());
+        if (user == null) {
+            throw new ApiBusinessException(ApiCode.USER_NOT_EXIST, order.getUserId());
+        }
         System.out.println(user);
         orderService.save(order);
     }
@@ -31,6 +36,16 @@ public class OrderController {
     @PublicV1GetMapping("/{id}")
     public Order getOrderById(@PathVariable("id") Long id) {
         Order order = orderService.getById(id);
+        System.out.println(order);
+        return order;
+    }
+
+    @PublicV1GetMapping("/hello/exception")
+    public Order test() {
+        User user = userClient.getUserThrowException();
+        System.out.println("return from getUserThrowException");
+        System.out.println(user);
+        Order order = orderService.getById(1);
         System.out.println(order);
         return order;
     }

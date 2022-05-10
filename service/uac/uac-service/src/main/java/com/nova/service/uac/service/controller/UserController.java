@@ -33,7 +33,7 @@ public class UserController {
         userService.save(user);
     }
 
-    @ProtectedV1GetMapping("/exception")
+    @PublicV1GetMapping("/hello/exception")
     public User getUserThrowException() {
         throw new RuntimeException("user not exists");
     }

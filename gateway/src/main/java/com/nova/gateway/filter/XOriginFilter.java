@@ -17,6 +17,6 @@ public class XOriginFilter implements GlobalFilter, Ordered {
     }
 
     public int getOrder() {
-        return 0;
+        return -1000;
     }
 }
