@@ -24,7 +24,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         user.setName("test"+user.getId());
         user.setPassword("111111");
         user.setSalt("111111");
-        userClient.saveUser(user);
+        userClient.save(user);
         this.save(order);
         userClient.getUserThrowException();
         return false;

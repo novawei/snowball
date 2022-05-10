@@ -23,7 +23,7 @@ public class OrderController {
 
     @PublicV1PostMapping
     public void createOrder(@RequestBody Order order) {
-        User user = userClient.getUserById(order.getUserId());
+        User user = userClient.getById(order.getUserId());
         System.out.println(user);
         orderService.save(order);
     }

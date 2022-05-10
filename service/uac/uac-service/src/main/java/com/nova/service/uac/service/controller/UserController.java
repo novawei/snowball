@@ -21,7 +21,7 @@ public class UserController {
     private UserService userService;
 
     @ProtectedV1GetMapping("/{id}")
-    public User getUserById(@PathVariable("id") Long id) {
+    public User getById(@PathVariable("id") Long id) {
         User user = userService.getById(id);
         System.out.println("V1");
         System.out.println(user);
@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @ProtectedV1PostMapping
-    public void saveUser(@RequestBody User user) {
+    public void save(@RequestBody User user) {
         userService.save(user);
     }
 
@@ -39,11 +39,10 @@ public class UserController {
     }
 
     @PublicV1GetMapping("/{id}")
-    public UserVo getUserVoById(@PathVariable("id") Long id) {
+    public UserVo getVoById(@PathVariable("id") Long id) {
         User user = userService.getById(id);
         System.out.println(user);
         UserVo userVo = BeanUtils.convert(user, UserVo.class);
         return userVo;
     }
-
 }
