@@ -2,6 +2,7 @@ package com.nova.common.web.exception;
 
 import com.nova.common.core.api.ApiCode;
 import com.nova.common.core.exception.ApiBusinessException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.context.MessageSource;
@@ -14,22 +15,16 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.util.*;
 
+
 @Component
 public class CustomErrorAttributes extends DefaultErrorAttributes {
-    private final MessageSource messageSource;
-
-    public CustomErrorAttributes(MessageSource messageSource) {
-        super();
-        this.messageSource = messageSource;
-    }
+    @Autowired
+    private MessageSource messageSource;
 
     @Override
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
-        Map<String, Object> errorAttributes = new LinkedHashMap();
-        errorAttributes.put("timestamp", new Date());
-        this.addStatus(errorAttributes, webRequest);
+        Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, options);
         this.addApiCode(errorAttributes, webRequest);
-        this.addPath(errorAttributes, webRequest);
         return errorAttributes;
     }
 
@@ -70,14 +65,18 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
     }
 
     private void addApiCode(Map<String, Object> errorAttributes, WebRequest webRequest, ApiCode apiCode, Object[] args) {
-        errorAttributes.put("code", apiCode.getCode());
+        errorAttributes.put("apiCode", apiCode.getCode());
         String messageKey = apiCode.getMessageKey();
         Locale locale = LocaleContextHolder.getLocale();
+        System.out.println(messageKey);
+        System.out.println(locale);
         try {
+            System.out.println(this.messageSource);
             String message = this.messageSource.getMessage(messageKey, args, locale);
-            errorAttributes.put("message", message);
+            errorAttributes.put("apiMessage", message);
         } catch (NoSuchMessageException e) {
-            errorAttributes.put("message", "None");
+            e.printStackTrace();
+            errorAttributes.put("apiMessage", "None");
         }
     }
 

@@ -49,4 +49,13 @@ public class OrderController {
         System.out.println(order);
         return order;
     }
+
+    @PublicV1PostMapping("/hello/{scope}/transaction")
+    public void testTransaction(@PathVariable("scope") String scope, @RequestBody Order order) {
+        if (scope.equals("global")) {
+            orderService.testGlobalTransaction(order);
+        } else {
+            orderService.testTransaction(order);
+        }
+    }
 }

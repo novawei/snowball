@@ -6,14 +6,31 @@
 ```yaml
 services:
   nacos-server:
+    hostname: nacos-server
     image: nacos/nacos-server:${NACOS_VERSION}
+    depends_on:
+      - database-server
+    restart: always
     environment:
-    - PREFER_HOST_MODE=hostname
-    - MODE=standalone
+      - JVM_XMS=200m
+      - JVM_XMX=200m
+      - JVM_XMN=100m
+      - JVM_MS=64m
+      - JVM_MMS=128m
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=database-server
+      - MYSQL_SERVICE_DB_NAME=nacos_server
+      - MYSQL_SERVICE_PORT=3306
+      - MYSQL_SERVICE_USER=root
+      - MYSQL_SERVICE_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false
     volumes:
-    - ./logs/nacos-standalone-logs/:/home/nacos/logs
-    - .//init.d/custom.properties:/home/nacos/init.d/custom.properties
+      - ./server/nacos/.tmp/logs/:/home/nacos/logs
+      - ./server/nacos/.tmp/init.d/custom.properties:/home/nacos/init.d/custom.properties
     ports:
-    - 8848:8848
-    - 9848:9848
+      - 8848:8848
+      - 9848:9848
+      - 9555:9555
 ```
