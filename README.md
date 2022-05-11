@@ -9,4 +9,6 @@
 * 统一响应格式，message国际化处理
 * Feign异常处理
 * 分布式事务Seata
+* Sentinel
+* Log管理
 * 登录认证和权限控制
