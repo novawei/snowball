@@ -68,10 +68,7 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
         errorAttributes.put("apiCode", apiCode.getCode());
         String messageKey = apiCode.getMessageKey();
         Locale locale = LocaleContextHolder.getLocale();
-        System.out.println(messageKey);
-        System.out.println(locale);
         try {
-            System.out.println(this.messageSource);
             String message = this.messageSource.getMessage(messageKey, args, locale);
             errorAttributes.put("apiMessage", message);
         } catch (NoSuchMessageException e) {
