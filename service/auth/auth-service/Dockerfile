@@ -1,8 +1,14 @@
-FROM java:8-jre
+FROM openjdk:8u212-jre-alpine
 
-ENV TZ=Asia/Shanghai JAVA_OPTS="-Xms200m -Xmx200m"
+ENV JAR_NAME=auth-service TZ=Asia/Shanghai JAVA_OPTS="-Xms200m -Xmx200m"
 
-ADD ./target/auth-service.jar /app/
-CMD java -jar /app/auth-service.jar ${JAVA_OPTS}
+ADD ./startup.sh ./startup.sh
+ADD ./wait-for.sh ./wait-for.sh
+RUN chmod +x ./startup.sh ./wait-for.sh
 
-EXPOSE 9002
+ADD ./target/${JAR_NAME}.jar /app/
+
+ENTRYPOINT ["/usr/bin/env"]
+CMD ["./startup.sh"]
+
+EXPOSE 9003
