@@ -4,13 +4,15 @@
 
 ## docker compose example
 ```yaml
+version: '3'
+services:
   database-server:
     hostname: database-server
-    image: mysql:${MYSQL_VERSION}
+    image: snowball/database-server:${SNOWBALL_VERSION}
+    build:
+      context: ./server/database
     restart: always
     environment:
-      - TZ=Asia/Shanghai
-      - MYSQL_ROOT_HOST=%
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
       - ./server/database/conf.d:/etc/mysql/conf.d
