@@ -9,7 +9,7 @@ SpringCloud Quick Start Template
 * 接口设计
 * 国际化处理
 * 分布式事务Seata
-* Jenkins
+* [TODO]Jenkins
 * [TODO]Sentinel
 * [TODO]Log管理
 * [TODO]登录认证和权限控制
