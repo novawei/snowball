@@ -2,12 +2,10 @@ package com.nova.common.web.exception;
 
 import com.nova.common.core.api.ApiCode;
 import com.nova.common.core.exception.ApiBusinessException;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.nova.common.web.util.I18nUtils;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
-import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
@@ -18,9 +16,6 @@ import java.util.*;
 
 @Component
 public class CustomErrorAttributes extends DefaultErrorAttributes {
-    @Autowired
-    private MessageSource messageSource;
-
     @Override
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
         Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, options);
@@ -67,9 +62,8 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
     private void addApiCode(Map<String, Object> errorAttributes, WebRequest webRequest, ApiCode apiCode, Object[] args) {
         errorAttributes.put("apiCode", apiCode.getCode());
         String messageKey = apiCode.getMessageKey();
-        Locale locale = LocaleContextHolder.getLocale();
         try {
-            String message = this.messageSource.getMessage(messageKey, args, locale);
+            String message = I18nUtils.getMessage(messageKey, args);
             errorAttributes.put("apiMessage", message);
         } catch (NoSuchMessageException e) {
             e.printStackTrace();
