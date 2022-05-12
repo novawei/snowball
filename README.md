@@ -156,7 +156,7 @@ Dockerfile中shell脚本说明：
     "department": {
       "id": 1,
       "name": "研发部"
-    },
+    }
 }
 ```
 
