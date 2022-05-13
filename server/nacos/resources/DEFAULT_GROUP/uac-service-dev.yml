@@ -1,5 +1,5 @@
 server:
   error:
-    includeException: true
-    # includeStacktrace: ALWAYS
-    includeMessage: ALWAYS
+    include-exception: true
+    # include-stacktrace: ALWAYS
+    include-message: ALWAYS

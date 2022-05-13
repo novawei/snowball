@@ -1,3 +1,8 @@
+server:
+  error:
+    include-exception: true
+    # include-stacktrace: ALWAYS
+    include-message: ALWAYS
 spring:
   cloud:
     gateway:

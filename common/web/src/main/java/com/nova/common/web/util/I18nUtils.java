@@ -21,6 +21,16 @@ public final class I18nUtils {
         MessageSource messageSource = SpringUtil.getBean("messageSource");
         return messageSource.getMessage(code, objects, locale);
     }
+
+    public static String getMessage(Locale locale, String code) {
+        MessageSource messageSource = SpringUtil.getBean("messageSource");
+        return messageSource.getMessage(code, null, locale);
+    }
+
+    public static String getMessage(Locale locale, String code, Object... objects) {
+        MessageSource messageSource = SpringUtil.getBean("messageSource");
+        return messageSource.getMessage(code, objects, locale);
+    }
 }
 
 
