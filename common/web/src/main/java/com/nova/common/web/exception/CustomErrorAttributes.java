@@ -1,11 +1,13 @@
 package com.nova.common.web.exception;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.nova.common.core.api.ApiCode;
 import com.nova.common.core.exception.ApiBusinessException;
 import com.nova.common.web.util.I18nUtils;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
@@ -60,14 +62,16 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
     }
 
     private void addApiCode(Map<String, Object> errorAttributes, WebRequest webRequest, ApiCode apiCode, Object[] args) {
-        errorAttributes.put("apiCode", apiCode.getCode());
+        Environment environment = SpringUtil.getBean("environment");
+        boolean useSnakeCase = "SNAKE_CASE".equals(environment.getProperty("spring.jackson.property-naming-strategy"));
+        errorAttributes.put(useSnakeCase ? "api_code" : "apiCode", apiCode.getCode());
         String messageKey = apiCode.getMessageKey();
         try {
             String message = I18nUtils.getMessage(messageKey, args);
-            errorAttributes.put("apiMessage", message);
+            errorAttributes.put(useSnakeCase ? "api_message" : "apiMessage", message);
         } catch (NoSuchMessageException e) {
             e.printStackTrace();
-            errorAttributes.put("apiMessage", "None");
+            errorAttributes.put(useSnakeCase ? "api_message" : "apiMessage", "None");
         }
     }
 

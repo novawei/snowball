@@ -129,6 +129,11 @@ Dockerfile中shell脚本说明：
 ### 接口设计
 
 * 接口建议采用RESTful规范进行设计
+
+    * [RESTful API 设计指南](http://www.ruanyifeng.com/blog/2014/05/restful_api.html)
+    * [RESTful API设计中常见的问题和解决方案](https://www.jianshu.com/p/4d4b4d9074ac)
+    * [Getting started with the REST API](https://docs.github.com/cn/rest/guides/getting-started-with-the-rest-api)
+
 * 接口必须通过HTTP STATUS进行响应，这样SpringCloud才能进行异常的捕获和传递，方便后续分布式事务的处理
 例如，创建订单时，检测到用户不存在，应该直接`throw new ApiBusinessException(ApiCode.USER_NOT_EXIST, order.getUserId());`
 
