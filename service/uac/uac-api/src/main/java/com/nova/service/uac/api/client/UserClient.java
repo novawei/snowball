@@ -23,4 +23,7 @@ public interface UserClient {
 
     @PublicV1GetMapping("/hello/exception")
     User getUserThrowException();
+
+    @PublicV1GetMapping("/{id}/name")
+    String getName(@PathVariable("id") Long id);
 }

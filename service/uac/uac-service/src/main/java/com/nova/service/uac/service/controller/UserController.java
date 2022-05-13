@@ -45,4 +45,11 @@ public class UserController {
         UserVo userVo = BeanUtils.convert(user, UserVo.class);
         return userVo;
     }
+
+    @PublicV1GetMapping("/{id}/name")
+    public String getName(@PathVariable("id") Long id) {
+        User user = userService.getById(id);
+        System.out.println(user);
+        return user == null ? null : user.getName();
+    }
 }

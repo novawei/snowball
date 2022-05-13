@@ -12,3 +12,5 @@ spring:
           uri: lb://order-service
           predicates:
             - Path=/order/**
+    jackson:
+      property-naming-strategy: SNAKE_CASE

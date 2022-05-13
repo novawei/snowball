@@ -40,6 +40,13 @@ public class OrderController {
         return order;
     }
 
+    @PublicV1GetMapping("/hello/{id}/name")
+    public Boolean testPureObject(@PathVariable("id") Long id) {
+        String name = userClient.getName(id);
+        System.out.println("name get from user client: " + name);
+        return name == null;
+    }
+
     @PublicV1GetMapping("/hello/exception")
     public Order test() {
         User user = userClient.getUserThrowException();

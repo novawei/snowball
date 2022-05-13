@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        # add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            # if allowCredentials=true, allowedOrigins MUST NOT contain '*'
+            allowCredentials: false
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            max-age: 3600
