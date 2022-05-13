@@ -6,8 +6,8 @@ spring:
         cors-configurations:
           '[/**]':
             # if allowCredentials=true, allowedOrigins MUST NOT contain '*'
-            allowCredentials: false
-            allowedOrigins: "*"
-            allowedMethods: "*"
-            allowedHeaders: "*"
+            allow-credentials: false
+            allowed-origins: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
             max-age: 3600
