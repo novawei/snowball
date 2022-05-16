@@ -1,7 +1,7 @@
 package com.nova.service.order.service.controller;
 
-import com.nova.common.core.api.ApiCode;
-import com.nova.common.core.exception.ApiBusinessException;
+import com.nova.common.web.api.ApiCode;
+import com.nova.common.web.exception.ApiException;
 import com.nova.common.web.annotation.mapping.v1.PublicV1GetMapping;
 import com.nova.common.web.annotation.mapping.v1.PublicV1PostMapping;
 import com.nova.service.order.api.entity.Order;
@@ -27,7 +27,7 @@ public class OrderController {
     public void createOrder(@RequestBody Order order) {
         User user = userClient.getById(order.getUserId());
         if (user == null) {
-            throw new ApiBusinessException(ApiCode.USER_NOT_EXIST, order.getUserId());
+            throw new ApiException(ApiCode.USER_NOT_EXIST, order.getUserId());
         }
         System.out.println(user);
         orderService.save(order);

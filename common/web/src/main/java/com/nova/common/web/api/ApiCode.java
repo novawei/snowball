@@ -1,4 +1,4 @@
-package com.nova.common.core.api;
+package com.nova.common.web.api;
 
 import org.springframework.lang.Nullable;
 
@@ -6,6 +6,7 @@ public enum ApiCode {
     // common business code defines
     OK(0, "api.code.ok"),
     FAIL(1, "api.code.fail"),
+    SENTINEL_BLOCKED(10, "api.code.sentinel_blocked"),
 
     // other business code defines
     USER_NOT_EXIST(100, "api.code.user_not_exist"),

@@ -1,8 +1,7 @@
 package com.nova.common.web.exception;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.nova.common.core.api.ApiCode;
-import com.nova.common.core.exception.ApiBusinessException;
+import com.nova.common.web.api.ApiCode;
 import com.nova.common.web.util.I18nUtils;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
@@ -11,9 +10,7 @@ import org.springframework.context.NoSuchMessageException;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.LocaleContextResolver;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -37,9 +34,9 @@ public class DefaultReactiveErrorAttributes extends DefaultErrorAttributes {
     private void addApiCode(Map<String, Object> errorAttributes, ServerRequest request, boolean useSnakeCase) {
         Throwable error = this.getError(request);
         if (error != null) {
-            if (error instanceof ApiBusinessException) {
-                ApiCode apiCode = ((ApiBusinessException) error).getApiCode();
-                Object[] args = ((ApiBusinessException) error).getArgs();
+            if (error instanceof ApiException) {
+                ApiCode apiCode = ((ApiException) error).getApiCode();
+                Object[] args = ((ApiException) error).getArgs();
                 addApiCode(errorAttributes, request, apiCode, args, useSnakeCase);
             } else {
                 addApiCode(errorAttributes, request, ApiCode.FAIL, null, useSnakeCase);

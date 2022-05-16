@@ -10,3 +10,14 @@ spring:
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         file-extension: yml
+    sentinel:
+      log:
+        dir: ./logs/csp
+      datasource:
+        flow:
+          nacos:
+            server-addr: nacos-server:8848
+            dataId: ${spring.application.name}-sentinel-rules
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: flow

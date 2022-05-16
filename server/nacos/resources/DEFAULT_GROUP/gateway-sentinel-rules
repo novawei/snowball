@@ -1,0 +1,18 @@
+[
+  {
+    "resource": "uac-service",
+    "count": 100,
+    "grade": 1,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 0
+  },
+  {
+    "resource": "order-service",
+    "count": 100,
+    "grade": 1,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 0
+  }
+]

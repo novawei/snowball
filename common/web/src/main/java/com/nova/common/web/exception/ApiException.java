@@ -1,8 +1,8 @@
-package com.nova.common.core.exception;
+package com.nova.common.web.exception;
 
-import com.nova.common.core.api.ApiCode;
+import com.nova.common.web.api.ApiCode;
 
-public class ApiBusinessException extends RuntimeException {
+public class ApiException extends RuntimeException {
     private ApiCode apiCode;
     private Object[] args;
 
@@ -14,7 +14,7 @@ public class ApiBusinessException extends RuntimeException {
         return this.args;
     }
 
-    public ApiBusinessException(ApiCode apiCode, Object ...args) {
+    public ApiException(ApiCode apiCode, Object ...args) {
         this.apiCode = apiCode;
         this.args = args;
     }

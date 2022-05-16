@@ -1,8 +1,7 @@
 package com.nova.common.web.exception;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.nova.common.core.api.ApiCode;
-import com.nova.common.core.exception.ApiBusinessException;
+import com.nova.common.web.api.ApiCode;
 import com.nova.common.web.util.I18nUtils;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
@@ -27,9 +26,9 @@ public class DefaultServletErrorAttributes extends DefaultErrorAttributes {
     private void addApiCode(Map<String, Object> errorAttributes, WebRequest webRequest) {
         Throwable error = this.getError(webRequest);
         if (error != null) {
-            if (error instanceof ApiBusinessException) {
-                ApiCode apiCode = ((ApiBusinessException) error).getApiCode();
-                Object[] args = ((ApiBusinessException) error).getArgs();
+            if (error instanceof ApiException) {
+                ApiCode apiCode = ((ApiException) error).getApiCode();
+                Object[] args = ((ApiException) error).getArgs();
                 addApiCode(errorAttributes, apiCode, args);
             } else {
                 addApiCode(errorAttributes, ApiCode.FAIL, null);
