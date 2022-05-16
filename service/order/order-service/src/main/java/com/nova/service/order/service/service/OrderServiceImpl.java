@@ -6,10 +6,12 @@ import com.nova.service.order.service.dao.OrderMapper;
 import com.nova.service.uac.api.client.UserClient;
 import com.nova.service.uac.api.entity.User;
 import io.seata.spring.annotation.GlobalTransactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
     @Autowired
@@ -26,15 +28,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         user.setPassword(user.getUsername());
         user.setSalt(user.getUsername());
         userClient.save(user);
-        System.out.println("save new user: " + user);
+        log.debug("save new user: {}", user);
         // save order
         this.save(order);
-        System.out.println("save new order: " + order);
+        log.debug("save new order: {}", order);
         // throw exception
         user = userClient.getById(order.getUserId());
-        System.out.println("try to get new user: " + user);
+        log.debug("try to get new user: {}", user);
         userClient.getUserThrowException();
-        System.out.println("throw exception");
+        log.debug("throw exception");
     }
 
     @GlobalTransactional(rollbackFor = Exception.class)
@@ -48,14 +50,14 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         user.setPassword(user.getUsername());
         user.setSalt(user.getUsername());
         userClient.save(user);
-        System.out.println("save new user: " + user);
+        log.debug("save new user: {}", user);
         // save order
         this.save(order);
-        System.out.println("save new order: " + order);
+        log.debug("save new order: {}", order);
         // throw exception
         user = userClient.getById(order.getUserId());
-        System.out.println("try to get new user: " + user);
+        log.debug("try to get new user: {}", user);
         userClient.getUserThrowException();
-        System.out.println("throw exception");
+        log.debug("throw exception");
     }
 }

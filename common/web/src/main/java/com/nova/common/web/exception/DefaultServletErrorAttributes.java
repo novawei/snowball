@@ -3,6 +3,7 @@ package com.nova.common.web.exception;
 import cn.hutool.extra.spring.SpringUtil;
 import com.nova.common.web.api.ApiCode;
 import com.nova.common.web.util.I18nUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.context.NoSuchMessageException;
@@ -14,12 +15,14 @@ import org.springframework.web.context.request.WebRequest;
 import java.util.*;
 
 
+@Slf4j
 @Component
 public class DefaultServletErrorAttributes extends DefaultErrorAttributes {
     @Override
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
         Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, options);
         this.addApiCode(errorAttributes, webRequest);
+        log.info("Api Response Result : {}", errorAttributes);
         return errorAttributes;
     }
 

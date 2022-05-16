@@ -9,10 +9,11 @@ SpringCloud Quick Start Template
 * 接口设计
 * 国际化处理
 * 分布式事务Seata
-* [TODO]Jenkins
-* [TODO]Sentinel
-* [TODO]Log管理
+* Sentinel
 * [TODO]登录认证和权限控制
+* [TODO]Jenkins
+* [TODO]Log管理, ELK
+* [TODO]链路追踪，Zipkin
 
 ## 运行
 ```shell script
@@ -263,6 +264,49 @@ CREATE TABLE IF NOT EXISTS `undo_log` (
 public void testGlobalTransaction(Order order) {
   // do something
 }
+```
+
+### Sentinel
+
+[Sentinel:分布式系统的流量防卫兵](https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D)
+
+Gateway网关集成了Sentinel流量控制，DataSource采用nacos。
+```yaml
+spring:
+  cloud:
+    sentinel:
+      log:
+        dir: ./logs/csp
+      datasource:
+        flow:
+          nacos:
+            server-addr: nacos-server:8848
+            dataId: ${spring.application.name}-sentinel-rules
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: flow
+```
+
+Sentinel控制配置文件/server/nacos/resources/DEFAULT_GROUP/gateway-sentinel-rules
+```json
+[
+  {
+    "resource": "uac-service",
+    "count": 100,
+    "grade": 1,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 0
+  },
+  {
+    "resource": "order-service",
+    "count": 100,
+    "grade": 1,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 0
+  }
+]
 ```
 
 ## 参考

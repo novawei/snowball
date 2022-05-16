@@ -31,7 +31,7 @@ hs_err_pid*
 .DS_Store
 
 # Maven
-log/
+logs/
 target/
 
 # Eclipse
