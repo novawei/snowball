@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-<configuration info="false" scan="false">
+<configuration debug="false" scan="false">
 	<springProperty scop="context" name="spring.application.name" source="spring.application.name" defaultValue=""/>
 	<property name="log.path" value="logs/${spring.application.name}"/>
 	<!-- 彩色日志格式 -->
