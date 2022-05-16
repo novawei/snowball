@@ -141,15 +141,25 @@ Dockerfile中shell脚本说明：
 **接口设计**
 
 * 成功的接口响应，HTTP Response Body总是返回用户需要的信息，不再包装code、message等其他字段
+* 接口JSON字段格式默认采用SNAKE_CASE，如需切换，可在Nacos配置文件中设置
+
+```yaml
+spring:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    default-property-inclusion: NON_NULL
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+```
 
 例如，获取订单信息的接口，`http://localhost:8080/order/orders/1`
 ```json
 {
   "id": 1,
-  "userId": 1,
+  "user_id": 1,
   "name": "订单1",
   "status": 0,
-  "createTime": "2020-02-02T00:00:00.000+00:00"
+  "create_time": "2020-02-02T00:00:00.000+00:00"
 }
 ```
 
@@ -176,8 +186,8 @@ Dockerfile中shell脚本说明：
     "exception": "feign.FeignException$InternalServerError",
     "message": "[500] during [GET] to [http://uac-service/uac/users/hello/exception] [UserClient#getUserThrowException()]: [{\"timestamp\":\"2022-05-12T07:20:22.058+00:00\",\"status\":500,\"error\":\"Internal Server Error\",\"exception\":\"java.lang.RuntimeException\",\"message\":\"user not exists\",\"path\":\"/uac/users/hello/exception\",\"apiCode\":1,\"apiMessage\":\"fail\"}]",
     "path": "/order/orders/hello/global/transaction",
-    "apiCode": 1,
-    "apiMessage": "失败"
+    "api_code": 1,
+    "api_message": "失败"
 }
 ```
 
