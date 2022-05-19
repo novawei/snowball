@@ -29,7 +29,7 @@ public class ApiLogAspect {
     @Before("logAnnotation()")
     public void doBefore() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        log.info("Api Request: Method={} Path={}", request.getMethod(), request.getRequestURI());
+        log.info("Api Request: HttpMethod={} URI={}", request.getMethod(), request.getRequestURI());
     }
 
     /**
@@ -42,7 +42,7 @@ public class ApiLogAspect {
     public void doAfter(final JoinPoint joinPoint, final Object returnValue) {
         String strClassName = joinPoint.getTarget().getClass().getName();
         String strMethodName = joinPoint.getSignature().getName();
-        log.info("Class: {}, Method: {}, Args: {}", strClassName, strMethodName, joinPoint.getArgs());
+        log.info("Api Request: Class={} Method={} Args={}", strClassName, strMethodName, joinPoint.getArgs());
         log.info("Api Response Result: {}", returnValue);
     }
 }

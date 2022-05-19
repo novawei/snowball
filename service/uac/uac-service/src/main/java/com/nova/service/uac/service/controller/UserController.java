@@ -10,10 +10,7 @@ import com.nova.service.uac.api.entity.UserVo;
 import com.nova.service.uac.service.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.nova.common.core.util.BeanUtils;
 
 @Slf4j
@@ -26,35 +23,20 @@ public class UserController {
     @ProtectedV1GetMapping("/{id}")
     public User getById(@PathVariable("id") Long id) {
         User user = userService.getById(id);
-        log.debug("v1");
-        log.debug("user: {}", user);
         return user;
+    }
+
+    @PublicV1GetMapping("/{id}")
+    public UserVo getVoById(@PathVariable("id") Long id) {
+        User user = userService.getById(id);
+        UserVo userVo = BeanUtils.convert(user, UserVo.class);
+        return userVo;
     }
 
     @ApiLog
     @PublicV1PostMapping
     public void save(@RequestBody User user) {
         userService.save(user);
-    }
-
-    @PublicV1GetMapping("/hello/exception")
-    public User getUserThrowException() {
-        throw new RuntimeException("user not exists");
-    }
-
-    @PublicV1GetMapping("/{id}")
-    public UserVo getVoById(@PathVariable("id") Long id) {
-        User user = userService.getById(id);
-        log.debug("user: {}", user);
-        UserVo userVo = BeanUtils.convert(user, UserVo.class);
-        return userVo;
-    }
-
-    @PublicV1GetMapping("/{id}/name")
-    public String getName(@PathVariable("id") Long id) {
-        User user = userService.getById(id);
-        log.debug("user: {}", user);
-        return user == null ? null : user.getName();
     }
 
     @ApiLog

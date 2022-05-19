@@ -11,16 +11,4 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface UserClient {
     @ProtectedV1GetMapping("/{id}")
     User getById(@PathVariable("id") Long id);
-
-    @PublicV1PostMapping
-    void save(@RequestBody User user);
-
-    @PublicV1PutMapping
-    void updateById(@RequestBody User user);
-
-    @PublicV1GetMapping("/hello/exception")
-    User getUserThrowException();
-
-    @PublicV1GetMapping("/{id}/name")
-    String getName(@PathVariable("id") Long id);
 }

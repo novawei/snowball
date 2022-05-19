@@ -1,6 +1,7 @@
 package com.nova.service.order.service.controller;
 
 import com.nova.common.log.annotation.ApiLog;
+import com.nova.common.web.annotation.mapping.v1.PublicV1DeleteMapping;
 import com.nova.common.web.api.ApiCode;
 import com.nova.common.web.exception.ApiException;
 import com.nova.common.web.annotation.mapping.v1.PublicV1GetMapping;
@@ -28,46 +29,29 @@ public class OrderController {
 
     @ApiLog
     @PublicV1PostMapping
-    public void createOrder(@RequestBody Order order) {
-        User user = userClient.getById(order.getUserId());
-        if (user == null) {
-            throw new ApiException(ApiCode.USER_NOT_EXIST, order.getUserId());
-        }
-        System.out.println(user);
-        log.debug("user: {}", user);
+    public void save(@RequestBody Order order) {
+        // 获取登录用户信息
+        // order.setUserId(1L);
         orderService.save(order);
     }
 
     @PublicV1GetMapping("/{id}")
-    public Order getOrderById(@PathVariable("id") Long id) {
+    public Order getById(@PathVariable("id") Long id) {
         Order order = orderService.getById(id);
-        log.debug("order : {}", order);
         return order;
     }
 
-    @PublicV1GetMapping("/hello/{id}/name")
-    public Boolean testPureObject(@PathVariable("id") Long id) {
-        String name = userClient.getName(id);
-        log.debug("name get from user client: {}", name);
-        return name == null;
+    @ApiLog
+    @PublicV1DeleteMapping("/{id}")
+    public void removeById(@PathVariable("id") Long id) {
+        orderService.removeById(id);
     }
 
-    @PublicV1GetMapping("/hello/exception")
-    public Order test() {
-        User user = userClient.getUserThrowException();
-        log.debug("return from getUserThrowException");
-        log.debug("user: {}", user);
-        Order order = orderService.getById(1);
-        log.debug("order: {}", order);
-        return order;
-    }
-
-    @PublicV1PostMapping("/hello/{scope}/transaction")
-    public void testTransaction(@PathVariable("scope") String scope, @RequestBody Order order) {
-        if (scope.equals("global")) {
-            orderService.testGlobalTransaction(order);
-        } else {
-            orderService.testTransaction(order);
-        }
+    @ApiLog
+    @PublicV1PostMapping("/{id}/cancellation")
+    public void cancelById(@PathVariable("id") Long id) {
+        Order order = orderService.getById(id);
+        order.setStatus(1);
+        orderService.updateById(order);
     }
 }

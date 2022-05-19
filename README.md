@@ -136,7 +136,7 @@ Dockerfile中shell脚本说明：
     * [Getting started with the REST API](https://docs.github.com/cn/rest/guides/getting-started-with-the-rest-api)
 
 * 接口必须通过HTTP STATUS进行响应，这样SpringCloud才能进行异常的捕获和传递，方便后续分布式事务的处理
-例如，创建订单时，检测到用户不存在，应该直接`throw new ApiBusinessException(ApiCode.USER_NOT_EXIST, order.getUserId());`
+例如，创建订单时，检测到用户不存在，应该直接`throw new ApiException(ApiCode.USER_NOT_EXIST, order.getUserId());`
 
 **接口设计**
 
@@ -200,9 +200,9 @@ spring:
 
 微服务整体，通过Gateway将接口API提供给用户访问，微服务内部之间通过FeignClient进行调用，例如UAC-用户和订单服务，订单服务需要访问用户信息。有些接口可能涉及敏感或者重要的数据，并不能暴露出来进行访问。
 
-内外网访问限制实现，设计`X-Origin` HTTP Header: <br/>
-1. 当接口从Gateway进行访问时，会通过Filter，设置`X-Origin=Gateway`
-2. 当接口从FeignClient进行访问时，会设置`X-Origin=Feign`
+内外网访问限制实现，设计`X-Api-Origin` HTTP Header: <br/>
+1. 当接口从Gateway进行访问时，会通过Filter，设置`X-Api-Origin=Gateway`
+2. 当接口从FeignClient进行访问时，会设置`X-Api-Origin=Feign`
 
 **接口版本区分**
 

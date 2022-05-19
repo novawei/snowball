@@ -4,6 +4,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.nova.service.order.api.entity.Order;
 
 public interface OrderService extends IService<Order> {
-    void testTransaction(Order order);
-    void testGlobalTransaction(Order order);
 }
