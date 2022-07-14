@@ -1,0 +1,18 @@
+server:
+  error:
+    include-exception: true
+    # include-stacktrace: ALWAYS
+    include-message: ALWAYS
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        # add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            # if allowCredentials=true, allowedOrigins MUST NOT contain '*'
+            allow-credentials: false
+            allowed-origins: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
+            max-age: 3600

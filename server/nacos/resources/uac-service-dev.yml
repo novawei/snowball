@@ -1,5 +1,0 @@
-server:
-  error:
-    includeException: true
-    # includeStacktrace: ALWAYS
-    includeMessage: ALWAYS

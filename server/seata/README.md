@@ -7,12 +7,16 @@ https://github.com/seata/seata/blob/develop/script/config-center/config.txt
 
 ## docker compose example
 ```yaml
+version: '3'
 services:
   seata-server:
     hostname: seata-server
-    image: seataio/seata-server:${SEATA_VERSION}
+    image: snowball/seata-server:${SNOWBALL_VERSION}
+    build:
+      context: ./server/seata
     depends_on:
       - nacos-server
+    command: ./wait-for.sh -t 0 nacos-server:8848 -- ./startup.sh
     environment:
       - SEATA_CONFIG_NAME=file:/root/seata-config/registry
     volumes:

@@ -1,19 +1,23 @@
 package com.nova.service.order.service.controller;
 
-import com.nova.common.core.api.ApiCode;
-import com.nova.common.core.exception.ApiBusinessException;
+import com.nova.common.log.annotation.ApiLog;
+import com.nova.common.web.annotation.mapping.v1.PublicV1DeleteMapping;
+import com.nova.common.web.api.ApiCode;
+import com.nova.common.web.exception.ApiException;
 import com.nova.common.web.annotation.mapping.v1.PublicV1GetMapping;
 import com.nova.common.web.annotation.mapping.v1.PublicV1PostMapping;
 import com.nova.service.order.api.entity.Order;
 import com.nova.service.order.service.service.OrderService;
 import com.nova.service.uac.api.client.UserClient;
 import com.nova.service.uac.api.entity.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping("/order/orders")
 public class OrderController {
@@ -23,39 +27,31 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @ApiLog
     @PublicV1PostMapping
-    public void createOrder(@RequestBody Order order) {
-        User user = userClient.getById(order.getUserId());
-        if (user == null) {
-            throw new ApiBusinessException(ApiCode.USER_NOT_EXIST, order.getUserId());
-        }
-        System.out.println(user);
+    public void save(@RequestBody Order order) {
+        // 获取登录用户信息
+        // order.setUserId(1L);
         orderService.save(order);
     }
 
     @PublicV1GetMapping("/{id}")
-    public Order getOrderById(@PathVariable("id") Long id) {
+    public Order getById(@PathVariable("id") Long id) {
         Order order = orderService.getById(id);
-        System.out.println(order);
         return order;
     }
 
-    @PublicV1GetMapping("/hello/exception")
-    public Order test() {
-        User user = userClient.getUserThrowException();
-        System.out.println("return from getUserThrowException");
-        System.out.println(user);
-        Order order = orderService.getById(1);
-        System.out.println(order);
-        return order;
+    @ApiLog
+    @PublicV1DeleteMapping("/{id}")
+    public void removeById(@PathVariable("id") Long id) {
+        orderService.removeById(id);
     }
 
-    @PublicV1PostMapping("/hello/{scope}/transaction")
-    public void testTransaction(@PathVariable("scope") String scope, @RequestBody Order order) {
-        if (scope.equals("global")) {
-            orderService.testGlobalTransaction(order);
-        } else {
-            orderService.testTransaction(order);
-        }
+    @ApiLog
+    @PublicV1PostMapping("/{id}/cancellation")
+    public void cancelById(@PathVariable("id") Long id) {
+        Order order = orderService.getById(id);
+        order.setStatus(1);
+        orderService.updateById(order);
     }
 }

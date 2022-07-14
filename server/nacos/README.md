@@ -4,12 +4,16 @@
 
 ## docker compose example
 ```yaml
+version: '3'
 services:
   nacos-server:
     hostname: nacos-server
-    image: nacos/nacos-server:${NACOS_VERSION}
+    image: snowball/nacos-server:${SNOWBALL_VERSION}
+    build:
+      context: ./server/nacos
     depends_on:
       - database-server
+    command: ./wait-for.sh -t 0 database-server:3306 -- ./startup.sh
     restart: always
     environment:
       - JVM_XMS=200m

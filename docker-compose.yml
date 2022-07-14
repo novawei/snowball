@@ -72,6 +72,8 @@ services:
       - nacos-server
     command: ./wait-for.sh -t 0 nacos-server:8848 -- ./startup.sh
     restart: always
+    volumes:
+      - ./gateway/.tmp/logs:/app/logs
     ports:
       - 8080:8080
 
@@ -84,6 +86,8 @@ services:
       - nacos-server
     command: ./wait-for.sh -t 0 nacos-server:8848 -- ./startup.sh
     restart: always
+    volumes:
+      - ./service/uac/uac-service/.tmp/logs:/app/logs
     ports:
       - 9001:9001
 
@@ -96,5 +100,7 @@ services:
       - nacos-server
     command: ./wait-for.sh -t 0 nacos-server:8848 -- ./startup.sh
     restart: always
+    volumes:
+      - ./service/order/order-service/.tmp/logs:/app/logs
     ports:
       - 9003:9003
