@@ -56,8 +56,8 @@ public class DefaultServletErrorAttributes extends DefaultErrorAttributes {
             String message = I18nUtils.getMessage(messageKey, args);
             errorAttributes.put(useSnakeCase ? "api_message" : "apiMessage", message);
         } catch (NoSuchMessageException e) {
-            e.printStackTrace();
-            errorAttributes.put(useSnakeCase ? "api_message" : "apiMessage", "None");
+            log.warn("No Such Message: {}", messageKey);
+            // errorAttributes.put(useSnakeCase ? "api_message" : "apiMessage", "None");
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.nova.common.web.exception;
 
 import cn.hutool.extra.spring.SpringUtil;
+import lombok.extern.slf4j.Slf4j;
+
 import com.nova.common.web.api.ApiCode;
 import com.nova.common.web.util.I18nUtils;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.Locale;
 import java.util.Map;
 
-
+@Slf4j
 @Component
 public class DefaultReactiveErrorAttributes extends DefaultErrorAttributes {
     @Override
@@ -62,8 +64,8 @@ public class DefaultReactiveErrorAttributes extends DefaultErrorAttributes {
             String message = I18nUtils.getMessage(locale, messageKey, args);
             errorAttributes.put(useSnakeCase ? "api_message" : "apiMessage", message);
         } catch (NoSuchMessageException e) {
-            e.printStackTrace();
-            errorAttributes.put(useSnakeCase ? "api_message" : "apiMessage", "None");
+            log.error("No Such Message: {}", messageKey);
+            // errorAttributes.put(useSnakeCase ? "api_message" : "apiMessage", "None");
         }
     }
 }

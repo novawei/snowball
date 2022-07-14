@@ -8,8 +8,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableDiscoveryClient
 @EnableServletExceptionAdvice
 @SpringBootApplication
-public class UserServiceApplication {
+public class UacServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(UserServiceApplication.class, args);
+        SpringApplication.run(UacServiceApplication.class, args);
     }
 }

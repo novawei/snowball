@@ -1,6 +1,8 @@
 package com.nova.gateway.handler;
 
 import cn.hutool.extra.spring.SpringUtil;
+import lombok.extern.slf4j.Slf4j;
+
 import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.BlockRequestHandler;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.nova.common.web.api.ApiCode;
@@ -24,6 +26,7 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
+@Slf4j
 public class JsonBlockRequestHandler implements BlockRequestHandler {
     @Override
     public Mono<ServerResponse> handleRequest(ServerWebExchange serverWebExchange, Throwable error) {
@@ -40,7 +43,7 @@ public class JsonBlockRequestHandler implements BlockRequestHandler {
         this.addApiCode(errorAttributes, serverWebExchange, error, useSnakeCase);
         return ServerResponse
                 .status((int)errorAttributes.get("status"))
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(errorAttributes));
     }
 
@@ -94,8 +97,8 @@ public class JsonBlockRequestHandler implements BlockRequestHandler {
             String message = I18nUtils.getMessage(locale, messageKey, args);
             errorAttributes.put(useSnakeCase ? "api_message" : "apiMessage", message);
         } catch (NoSuchMessageException e) {
-            e.printStackTrace();
-            errorAttributes.put(useSnakeCase ? "api_message" : "apiMessage", "None");
+            log.warn("No Such Message: {}", messageKey);
+            // errorAttributes.put(useSnakeCase ? "api_message" : "apiMessage", "None");
         }
     }
 }
