@@ -30,6 +30,7 @@ public class DefaultReactiveErrorAttributes extends DefaultErrorAttributes {
         errorAttributes.put(useSnakeCase ? "request_id" : "requestId", requestId);
         // add api info
         this.addApiCode(errorAttributes, request, useSnakeCase);
+        log.info("Api Response: Result={}", errorAttributes);
         return errorAttributes;
     }
 

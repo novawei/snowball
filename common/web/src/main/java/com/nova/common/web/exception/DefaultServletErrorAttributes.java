@@ -22,7 +22,7 @@ public class DefaultServletErrorAttributes extends DefaultErrorAttributes {
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
         Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, options);
         this.addApiCode(errorAttributes, webRequest);
-        log.info("Api Response Result : {}", errorAttributes);
+        log.info("Api Response: Result={}", errorAttributes);
         return errorAttributes;
     }
 

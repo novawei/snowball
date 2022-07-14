@@ -41,6 +41,7 @@ public class JsonBlockRequestHandler implements BlockRequestHandler {
         errorAttributes.put(useSnakeCase ? "request_id" : "requestId", requestId);
         // add api info
         this.addApiCode(errorAttributes, serverWebExchange, error, useSnakeCase);
+        log.info("Api Response: Result={}", errorAttributes);
         return ServerResponse
                 .status((int)errorAttributes.get("status"))
                 .contentType(MediaType.APPLICATION_JSON)

@@ -27,9 +27,13 @@ public class ApiLogAspect {
      * Do before.
      */
     @Before("logAnnotation()")
-    public void doBefore() {
+    public void doBefore(final JoinPoint joinPoint) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         log.info("Api Request: HttpMethod={} URI={}", request.getMethod(), request.getRequestURI());
+        // TODO: log当前请求的执行人
+        String strClassName = joinPoint.getTarget().getClass().getName();
+        String strMethodName = joinPoint.getSignature().getName();
+        log.info("Api Request: Class={} Method={} Args={}", strClassName, strMethodName, joinPoint.getArgs());
     }
 
     /**
@@ -40,9 +44,6 @@ public class ApiLogAspect {
      */
     @AfterReturning(pointcut = "logAnnotation()", returning = "returnValue")
     public void doAfter(final JoinPoint joinPoint, final Object returnValue) {
-        String strClassName = joinPoint.getTarget().getClass().getName();
-        String strMethodName = joinPoint.getSignature().getName();
-        log.info("Api Request: Class={} Method={} Args={}", strClassName, strMethodName, joinPoint.getArgs());
-        log.info("Api Response Result: {}", returnValue);
+        log.info("Api Response: Result={}", returnValue);
     }
 }

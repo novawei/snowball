@@ -14,7 +14,7 @@ services:
       - ./server/database/.tmp/datadir:/var/lib/mysql
       - ./server/database/.tmp/logs:/var/log/mysql
     ports:
-    - 3306:3306
+      - 3306:3306
 
   nacos-server:
     hostname: nacos-server
