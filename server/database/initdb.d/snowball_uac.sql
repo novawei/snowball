@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `undo_log` (
 -- Table structure for t_user
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS `t_user`  (
-  `id` bigint(64) NOT NULL,
+  `id` varchar(32) NOT NULL,
   `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,

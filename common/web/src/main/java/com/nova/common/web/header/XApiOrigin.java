@@ -9,6 +9,7 @@ public interface XApiOrigin {
 
     // Origin Types
     String TYPE_GATEWAY = "Gateway";
+    String TYPE_FEIGN = "Feign";
 
     // Header Filters
     String FILTER_GATEWAY = "X-Api-Origin=Gateway";

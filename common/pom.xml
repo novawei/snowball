@@ -17,6 +17,7 @@
         <module>web</module>
         <module>log</module>
         <module>seata</module>
+        <module>security</module>
     </modules>
 
 </project>

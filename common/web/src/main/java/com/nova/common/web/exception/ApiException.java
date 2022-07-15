@@ -15,6 +15,7 @@ public class ApiException extends RuntimeException {
     }
 
     public ApiException(ApiCode apiCode, Object ...args) {
+        super();
         this.apiCode = apiCode;
         this.args = args;
     }

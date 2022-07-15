@@ -2,6 +2,7 @@ package com.nova.service.order.service.controller;
 
 import com.nova.common.log.annotation.ApiLog;
 import com.nova.common.web.annotation.mapping.v1.PublicV1DeleteMapping;
+import com.nova.common.web.annotation.mapping.v1.PublicV1PutMapping;
 import com.nova.common.web.api.ApiCode;
 import com.nova.common.web.exception.ApiException;
 import com.nova.common.web.annotation.mapping.v1.PublicV1GetMapping;
@@ -48,7 +49,7 @@ public class OrderController {
     }
 
     @ApiLog
-    @PublicV1PostMapping("/{id}/cancellation")
+    @PublicV1PutMapping("/{id}:cancel")
     public void cancelById(@PathVariable("id") Long id) {
         Order order = orderService.getById(id);
         order.setStatus(1);

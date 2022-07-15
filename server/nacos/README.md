@@ -13,7 +13,7 @@ services:
       context: ./server/nacos
     depends_on:
       - database-server
-    command: ./wait-for.sh -t 0 database-server:3306 -- ./startup.sh
+    command: /usr/local/bin/wait-for.sh -t 0 database-server:3306 -- /usr/local/bin/startup.sh
     restart: always
     environment:
       - JVM_XMS=200m

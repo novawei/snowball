@@ -16,7 +16,7 @@ services:
       context: ./server/seata
     depends_on:
       - nacos-server
-    command: ./wait-for.sh -t 0 nacos-server:8848 -- ./startup.sh
+    command: /usr/local/bin/wait-for.sh -t 0 nacos-server:8848 -- /usr/local/bin/startup.sh
     environment:
       - SEATA_CONFIG_NAME=file:/root/seata-config/registry
     volumes:

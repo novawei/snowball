@@ -9,7 +9,8 @@ public enum ApiCode {
     SENTINEL_BLOCKED(10, "api.code.sentinel_blocked"),
 
     // other business code defines
-    USER_NOT_EXIST(100, "api.code.user_not_exist"),
+    USR_NOT_EXIST(100, "api.code.usr_not_exist"),
+    USR_PWD_INVALID(101, "api.code.usr_pwd_invalid"),
     ;
 
     private static final ApiCode[] VALUES = values();

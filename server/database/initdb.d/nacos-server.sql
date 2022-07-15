@@ -28,7 +28,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 /*   数据库全名 = nacos_server   */
 /*   表名称 = config_info   */
 /******************************************/
-CREATE TABLE IF NOT EXIST `config_info` (
+CREATE TABLE IF NOT EXISTS `config_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `data_id` varchar(255) NOT NULL COMMENT 'data_id',
   `group_id` varchar(255) DEFAULT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXIST `config_info` (
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_info_aggr   */
 /******************************************/
-CREATE TABLE IF NOT EXIST `config_info_aggr` (
+CREATE TABLE IF NOT EXISTS `config_info_aggr` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `data_id` varchar(255) NOT NULL COMMENT 'data_id',
   `group_id` varchar(255) NOT NULL COMMENT 'group_id',
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXIST `config_info_aggr` (
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_info_beta   */
 /******************************************/
-CREATE TABLE IF NOT EXIST `config_info_beta` (
+CREATE TABLE IF NOT EXISTS `config_info_beta` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `data_id` varchar(255) NOT NULL COMMENT 'data_id',
   `group_id` varchar(128) NOT NULL COMMENT 'group_id',
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXIST `config_info_beta` (
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_info_tag   */
 /******************************************/
-CREATE TABLE IF NOT EXIST `config_info_tag` (
+CREATE TABLE IF NOT EXISTS `config_info_tag` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `data_id` varchar(255) NOT NULL COMMENT 'data_id',
   `group_id` varchar(128) NOT NULL COMMENT 'group_id',
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXIST `config_info_tag` (
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_tags_relation   */
 /******************************************/
-CREATE TABLE IF NOT EXIST `config_tags_relation` (
+CREATE TABLE IF NOT EXISTS `config_tags_relation` (
   `id` bigint(20) NOT NULL COMMENT 'id',
   `tag_name` varchar(128) NOT NULL COMMENT 'tag_name',
   `tag_type` varchar(64) DEFAULT NULL COMMENT 'tag_type',
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXIST `config_tags_relation` (
 /*   数据库全名 = nacos_config   */
 /*   表名称 = group_capacity   */
 /******************************************/
-CREATE TABLE IF NOT EXIST `group_capacity` (
+CREATE TABLE IF NOT EXISTS `group_capacity` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `group_id` varchar(128) NOT NULL DEFAULT '' COMMENT 'Group ID，空字符表示整个集群',
   `quota` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '配额，0表示使用默认值',
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXIST `group_capacity` (
 /*   数据库全名 = nacos_config   */
 /*   表名称 = his_config_info   */
 /******************************************/
-CREATE TABLE IF NOT EXIST `his_config_info` (
+CREATE TABLE IF NOT EXISTS `his_config_info` (
   `id` bigint(64) unsigned NOT NULL,
   `nid` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `data_id` varchar(255) NOT NULL,
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXIST `his_config_info` (
 /*   数据库全名 = nacos_config   */
 /*   表名称 = tenant_capacity   */
 /******************************************/
-CREATE TABLE IF NOT EXIST `tenant_capacity` (
+CREATE TABLE IF NOT EXISTS `tenant_capacity` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `tenant_id` varchar(128) NOT NULL DEFAULT '' COMMENT 'Tenant ID',
   `quota` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '配额，0表示使用默认值',
@@ -190,7 +190,7 @@ CREATE TABLE IF NOT EXIST `tenant_capacity` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='租户容量信息表';
 
 
-CREATE TABLE IF NOT EXIST `tenant_info` (
+CREATE TABLE IF NOT EXISTS `tenant_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `kp` varchar(128) NOT NULL COMMENT 'kp',
   `tenant_id` varchar(128) default '' COMMENT 'tenant_id',
@@ -204,19 +204,19 @@ CREATE TABLE IF NOT EXIST `tenant_info` (
   KEY `idx_tenant_id` (`tenant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='tenant_info';
 
-CREATE TABLE IF NOT EXIST `users` (
+CREATE TABLE IF NOT EXISTS `users` (
 	`username` varchar(50) NOT NULL PRIMARY KEY,
 	`password` varchar(500) NOT NULL,
 	`enabled` boolean NOT NULL
 );
 
-CREATE TABLE IF NOT EXIST `roles` (
+CREATE TABLE IF NOT EXISTS `roles` (
 	`username` varchar(50) NOT NULL,
 	`role` varchar(50) NOT NULL,
 	UNIQUE INDEX `idx_user_role` (`username` ASC, `role` ASC) USING BTREE
 );
 
-CREATE TABLE IF NOT EXIST `permissions` (
+CREATE TABLE IF NOT EXISTS `permissions` (
     `role` varchar(50) NOT NULL,
     `resource` varchar(255) NOT NULL,
     `action` varchar(8) NOT NULL,

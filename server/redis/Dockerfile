@@ -1,14 +1,8 @@
-FROM openjdk:8u212-jre-alpine
-
-ENV JAR_NAME=gateway TZ=Asia/Shanghai JAVA_OPTS="-Xms200m -Xmx200m"
+FROM redis:7.0.3
 
 ADD ./startup.sh /usr/local/bin/startup.sh
 ADD ./wait-for.sh /usr/local/bin/wait-for.sh
 RUN chmod +x /usr/local/bin/startup.sh /usr/local/bin/wait-for.sh
 
-ADD ./target/${JAR_NAME}.jar /app/
-
 ENTRYPOINT ["/usr/bin/env"]
 CMD ["/usr/local/bin/startup.sh"]
-
-EXPOSE 6001
