@@ -1,5 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.nova.common.web.config.MessagesAutoConfiguration
+  com.nova.common.i18n.config.MessagesAutoConfiguration
 
 
 

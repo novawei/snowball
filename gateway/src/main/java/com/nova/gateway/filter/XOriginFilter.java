@@ -1,6 +1,6 @@
 package com.nova.gateway.filter;
 
-import com.nova.common.web.header.XApiOrigin;
+import com.nova.common.core.header.XApiOrigin;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;

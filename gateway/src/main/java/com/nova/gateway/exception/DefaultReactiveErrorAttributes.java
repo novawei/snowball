@@ -1,16 +1,16 @@
-package com.nova.common.web.exception;
+package com.nova.gateway.exception;
 
 import cn.hutool.extra.spring.SpringUtil;
+import com.nova.common.core.exception.ApiException;
 import lombok.extern.slf4j.Slf4j;
 
-import com.nova.common.web.api.ApiCode;
-import com.nova.common.web.util.I18nUtils;
+import com.nova.common.core.api.ApiCode;
+import com.nova.common.i18n.util.I18nUtils;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
@@ -34,24 +34,28 @@ public class DefaultReactiveErrorAttributes extends DefaultErrorAttributes {
         return errorAttributes;
     }
 
+    private ApiException findApiException(Throwable error) {
+        if (error == null) {
+            return null;
+        }
+        if (error instanceof ApiException) {
+            return (ApiException) error;
+        }
+        if (error.getCause() != null && error.getCause() instanceof ApiException) {
+            return (ApiException) error.getCause();
+        }
+        return null;
+    }
+
     private void addApiCode(Map<String, Object> errorAttributes, ServerRequest request, boolean useSnakeCase) {
         Throwable error = this.getError(request);
-        if (error != null) {
-            if (error instanceof ApiException) {
-                ApiCode apiCode = ((ApiException) error).getApiCode();
-                Object[] args = ((ApiException) error).getArgs();
-                addApiCode(errorAttributes, request, apiCode, args, useSnakeCase);
-            } else {
-                addApiCode(errorAttributes, request, ApiCode.FAIL, null, useSnakeCase);
-            }
+        ApiException apiException = findApiException(error);
+        if (apiException != null) {
+            ApiCode apiCode = apiException.getApiCode();
+            Object[] args = apiException.getArgs();
+            addApiCode(errorAttributes, request, apiCode, args, useSnakeCase);
         } else {
-            Integer status = (Integer)errorAttributes.get("status");
-            HttpStatus httpStatus = HttpStatus.valueOf(status);
-            if (httpStatus.isError()) {
-                addApiCode(errorAttributes, request, ApiCode.FAIL, null, useSnakeCase);
-            } else {
-                addApiCode(errorAttributes, request, ApiCode.OK, null, useSnakeCase);
-            }
+            addApiCode(errorAttributes, request, ApiCode.FAIL, null, useSnakeCase);
         }
     }
 

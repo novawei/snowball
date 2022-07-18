@@ -1,5 +1,6 @@
 package com.nova.common.security.util;
 
+import cn.hutool.core.lang.UUID;
 import io.jsonwebtoken.CompressionCodecs;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -15,6 +16,7 @@ public class JwtUtils {
     public static String buildToken(String  userId) {
         Key key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
         return Jwts.builder()
+                .setId(UUID.randomUUID().toString(true))
                 .setSubject(userId)
                 .signWith(key)
                 .compressWith(CompressionCodecs.GZIP)

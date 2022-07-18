@@ -1,4 +1,4 @@
-package com.nova.common.web.config;
+package com.nova.common.i18n.config;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;

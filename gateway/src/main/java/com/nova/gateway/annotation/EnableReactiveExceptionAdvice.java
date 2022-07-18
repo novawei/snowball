@@ -1,6 +1,6 @@
-package com.nova.common.web.annotation;
+package com.nova.gateway.annotation;
 
-import com.nova.common.web.exception.DefaultReactiveErrorAttributes;
+import com.nova.gateway.exception.DefaultReactiveErrorAttributes;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

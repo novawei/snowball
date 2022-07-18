@@ -1,13 +1,14 @@
 package com.nova.service.auth.service.controller;
 
 import com.nova.common.core.util.BeanUtils;
+import com.nova.common.log.annotation.ApiLog;
 import com.nova.common.security.util.CacheUtils;
 import com.nova.common.security.util.JwtUtils;
 import com.nova.common.security.util.SecurityUtils;
 import com.nova.common.web.annotation.mapping.v1.PublicV1DeleteMapping;
 import com.nova.common.web.annotation.mapping.v1.PublicV1PostMapping;
-import com.nova.common.web.api.ApiCode;
-import com.nova.common.web.exception.ApiException;
+import com.nova.common.core.api.ApiCode;
+import com.nova.common.core.exception.ApiException;
 import com.nova.service.auth.api.entity.AuthVo;
 import com.nova.service.auth.api.entity.TokenVo;
 import com.nova.service.uac.api.client.UserClient;
@@ -25,6 +26,7 @@ public class AuthController {
     @Autowired
     private UserClient userClient;
 
+    @ApiLog
     @PublicV1PostMapping("/token")
     public TokenVo createToken(@RequestBody AuthVo authVo) {
         User user = userClient.getByUsername(authVo.getUsername());
@@ -44,6 +46,7 @@ public class AuthController {
         return tokenVo;
     }
 
+    @ApiLog
     @PublicV1DeleteMapping("/token")
     public void deleteToken() {
         User user = SecurityUtils.getLoginUser();

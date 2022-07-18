@@ -9,6 +9,7 @@ import com.nova.service.uac.api.entity.UserVo;
 import com.nova.service.uac.service.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.nova.common.core.util.BeanUtils;
 
@@ -25,6 +26,7 @@ public class UserController {
         return user;
     }
 
+    @ApiLog
     @ProtectedV1GetMapping(value = "/", params = {"username"})
     public User getByUsername(@RequestParam("username") String username) {
         LambdaQueryWrapper<User> queryWrapper = new QueryWrapper<User>().lambda();
@@ -46,6 +48,7 @@ public class UserController {
     }
 
     @ApiLog
+    @PreAuthorize("hasRole('ADMIN')")
     @PublicV1DeleteMapping("/{id}")
     public void removeById(@PathVariable("id") String id) {
         userService.removeById(id);

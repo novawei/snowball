@@ -1,4 +1,4 @@
-package com.nova.common.web.api;
+package com.nova.common.core.api;
 
 import org.springframework.lang.Nullable;
 
@@ -11,6 +11,10 @@ public enum ApiCode {
     // other business code defines
     USR_NOT_EXIST(100, "api.code.usr_not_exist"),
     USR_PWD_INVALID(101, "api.code.usr_pwd_invalid"),
+
+    //
+    UNAUTHORIZED(401, "api.code.unauthorized"),
+    FORBIDDEN(403, "api.code.forbidden"),
     ;
 
     private static final ApiCode[] VALUES = values();

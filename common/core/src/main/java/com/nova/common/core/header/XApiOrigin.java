@@ -1,4 +1,4 @@
-package com.nova.common.web.header;
+package com.nova.common.core.header;
 
 /**
  * X-Api-Origin Header

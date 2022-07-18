@@ -8,9 +8,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.nova.common.security.exception.SecurityAccessDeniedHandler;
+import com.nova.common.security.exception.SecurityAuthenticationEntryPoint;
 import com.nova.common.security.filter.JwtAuthenticationFilter;
 import com.nova.common.security.util.CacheUtils;
-import com.nova.common.web.header.XApiOrigin;
+import com.nova.common.core.header.XApiOrigin;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -18,6 +20,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -41,11 +44,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .cors();
 
         http.authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers("/error").permitAll()
                 .antMatchers("/auth/**").permitAll()
                 .requestMatchers(new RequestHeaderRequestMatcher(XApiOrigin.HEADER_NAME, XApiOrigin.TYPE_FEIGN)).permitAll()
                 .anyRequest().authenticated();
 
-        http.addFilterAt(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        http.exceptionHandling()
+                .authenticationEntryPoint(new SecurityAuthenticationEntryPoint())
+                .accessDeniedHandler(new SecurityAccessDeniedHandler());
+
+        // 关闭session
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 

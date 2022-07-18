@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.BlockRequestHandler;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.nova.common.web.api.ApiCode;
-import com.nova.common.web.util.I18nUtils;
+import com.nova.common.core.api.ApiCode;
+import com.nova.common.i18n.util.I18nUtils;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.core.annotation.MergedAnnotation;
 import org.springframework.core.annotation.MergedAnnotations;

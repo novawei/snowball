@@ -1,4 +1,4 @@
-package com.nova.common.web.util;
+package com.nova.common.i18n.util;
 
 import cn.hutool.extra.spring.SpringUtil;
 import org.springframework.context.MessageSource;

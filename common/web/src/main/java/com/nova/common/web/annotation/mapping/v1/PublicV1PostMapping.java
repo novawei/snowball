@@ -1,7 +1,7 @@
 package com.nova.common.web.annotation.mapping.v1;
 
-import com.nova.common.web.header.XApiVersion;
-import com.nova.common.web.header.XApiOrigin;
+import com.nova.common.core.header.XApiVersion;
+import com.nova.common.core.header.XApiOrigin;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
