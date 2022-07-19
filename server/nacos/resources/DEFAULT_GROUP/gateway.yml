@@ -3,6 +3,8 @@ server:
 spring:
   cloud:
     gateway:
+      default-filters:
+        - DedupeResponseHeader=Vary, RETAIN_UNIQUE
       routes:
         - id: auth-service
           uri: lb://auth-service
