@@ -10,7 +10,7 @@ SpringCloud Quick Start Template
 * 国际化处理
 * 分布式事务Seata
 * Sentinel
-* [TODO]登录认证和权限控制
+* 登录认证和权限控制
 * [TODO]Jenkins
 * [TODO]Log管理, ELK
 * [TODO]链路追踪，Zipkin
