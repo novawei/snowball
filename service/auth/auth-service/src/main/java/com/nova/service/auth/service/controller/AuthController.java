@@ -2,6 +2,7 @@ package com.nova.service.auth.service.controller;
 
 import com.nova.common.core.util.BeanUtils;
 import com.nova.common.log.annotation.ApiLog;
+import com.nova.common.security.entity.JwtUser;
 import com.nova.common.security.util.CacheUtils;
 import com.nova.common.security.util.JwtUtils;
 import com.nova.common.security.util.SecurityUtils;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/auth")
@@ -41,7 +43,11 @@ public class AuthController {
             String token = JwtUtils.buildToken(user.getId());
             tokenVo.setUser(BeanUtils.convert(user, UserVo.class));
             tokenVo.setToken(token);
-            CacheUtils.cacheUser(user);
+            // 缓存用户和权限信息
+            Set<String> authorities = userClient.getAuthorities(user.getId());
+            JwtUser jwtUser = BeanUtils.convert(user, JwtUser.class);
+            jwtUser.setAuthorities(authorities);
+            CacheUtils.cacheUser(jwtUser);
         } else {
             throw new ApiException(ApiCode.USR_PWD_INVALID);
         }

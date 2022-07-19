@@ -1,6 +1,6 @@
 package com.nova.common.security.util;
 
-import com.nova.service.uac.api.entity.User;
+import com.nova.common.security.entity.JwtUser;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.concurrent.TimeUnit;
@@ -16,13 +16,18 @@ public class CacheUtils {
         INST = this;
     }
 
-    public static User fetchUser(String userId) {
+    public static JwtUser fetchUser(String userId) {
         RedisTemplate redisTemplate = INST.redisTemplate;
-        User user = (User) redisTemplate.opsForValue().get(userKeyFor(userId));
+        JwtUser user;
+        try {
+            user = (JwtUser) redisTemplate.opsForValue().get(userKeyFor(userId));
+        } catch (ClassCastException ex) {
+            user = null;
+        }
         return user;
     }
 
-    public static void cacheUser(User user) {
+    public static void cacheUser(JwtUser user) {
         // 先删除旧的数据
         deleteUser(user.getId());
         RedisTemplate redisTemplate = INST.redisTemplate;

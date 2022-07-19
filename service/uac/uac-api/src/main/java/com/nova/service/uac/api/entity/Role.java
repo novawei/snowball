@@ -5,19 +5,19 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.nova.common.mybatis.base.BaseEntity;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @Data
-public class User extends BaseEntity {
-    @TableId(type = IdType.ASSIGN_UUID)
+public class Role extends BaseEntity {
+    /**
+     * 角色ID，PREFIX=ROLE_
+     * 例如：
+     * 管理员 = ROLE_ADMIN
+     */
+    @NotBlank
+    @TableId(type = IdType.INPUT)
     private String id;
 
-    @NotNull
-    private String username;
-
-    @NotNull
+    @NotBlank
     private String name;
-
-    @NotNull
-    private String password;
 }

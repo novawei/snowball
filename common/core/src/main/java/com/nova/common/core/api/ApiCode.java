@@ -7,11 +7,11 @@ public enum ApiCode {
     OK(0, "api.code.ok"),
     FAIL(1, "api.code.fail"),
     SENTINEL_BLOCKED(10, "api.code.sentinel_blocked"),
+    DATA_DUPLICATED(20, "api.code.data_duplicated"),
 
     // other business code defines
     USR_NOT_EXIST(100, "api.code.usr_not_exist"),
     USR_PWD_INVALID(101, "api.code.usr_pwd_invalid"),
-    USR_DUPLICATED(102, "api.code.usr_duplicated"),
 
     //
     UNAUTHORIZED(401, "api.code.unauthorized"),

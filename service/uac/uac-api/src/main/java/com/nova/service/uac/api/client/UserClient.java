@@ -6,6 +6,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Set;
+
 
 @FeignClient(name = "uac-service", path = "/uac/users")
 public interface UserClient {
@@ -14,4 +16,7 @@ public interface UserClient {
 
     @ProtectedV1GetMapping(value = "/", params = {"username"})
     User getByUsername(@RequestParam("username") String username);
+
+    @ProtectedV1GetMapping("/{id}/authorities")
+    Set<String> getAuthorities(@PathVariable("id") String id);
 }
