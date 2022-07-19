@@ -44,13 +44,16 @@ CREATE TABLE IF NOT EXISTS `undo_log` (
 -- ----------------------------
 -- Table structure for t_user
 -- ----------------------------
-CREATE TABLE IF NOT EXISTS `t_user`  (
+CREATE TABLE IF NOT EXISTS `t_user` (
   `id` varchar(32) NOT NULL,
-  `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `salt` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `username` varchar(50) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `create_by` varchar(32) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_by` varchar(32) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 SET FOREIGN_KEY_CHECKS = 1;

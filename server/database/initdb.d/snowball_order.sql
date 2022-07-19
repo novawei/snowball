@@ -44,13 +44,15 @@ CREATE TABLE IF NOT EXISTS `undo_log` (
 -- ----------------------------
 -- Table structure for t_order
 -- ----------------------------
-CREATE TABLE IF NOT EXISTS `t_order`  (
+CREATE TABLE IF NOT EXISTS `t_order` (
   `id` bigint(64) NOT NULL,
-  `user_id` bigint(64) NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `user_id` varchar(32) NOT NULL,
   `status` int(2) NOT NULL DEFAULT '0',
-  `create_time` datetime NOT NULL,
+  `create_by` varchar(32) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_by` varchar(32) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 SET FOREIGN_KEY_CHECKS = 1;

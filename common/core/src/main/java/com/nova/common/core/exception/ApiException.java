@@ -23,14 +23,14 @@ public class ApiException extends RuntimeException {
     }
 
     public ApiException(ApiCode apiCode, Object ...args) {
-        super();
+        super(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         this.apiCode = apiCode;
         this.args = args;
     }
 
     public ApiException(HttpStatus httpStatus, ApiCode apiCode, Object ...args) {
-        super();
+        super(httpStatus.getReasonPhrase());
         this.httpStatus = httpStatus;
         this.apiCode = apiCode;
         this.args = args;

@@ -96,7 +96,22 @@
             <!--snowball artifacts version management-->
             <dependency>
                 <groupId>com.nova</groupId>
+                <artifactId>config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nova</groupId>
+                <artifactId>config-serialization</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nova</groupId>
                 <artifactId>core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nova</groupId>
+                <artifactId>mybatis</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

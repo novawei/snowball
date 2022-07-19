@@ -12,4 +12,12 @@ public final class BeanUtils extends org.springframework.beans.BeanUtils {
         copyProperties(source, target);
         return target;
     }
+
+    public static boolean isNull(Object object) {
+        return object == null;
+    }
+
+    public static boolean isNotNull(Object object) {
+        return object != null;
+    }
 }

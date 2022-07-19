@@ -27,6 +27,10 @@
         </dependency>
         <dependency>
             <groupId>com.nova</groupId>
+            <artifactId>config-serialization</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.nova</groupId>
             <artifactId>web</artifactId>
         </dependency>
         <dependency>

@@ -13,7 +13,9 @@
     </parent>
 
     <modules>
+        <module>config</module>
         <module>core</module>
+        <module>mybatis</module>
         <module>i18n</module>
         <module>web</module>
         <module>log</module>

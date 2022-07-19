@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -28,7 +30,7 @@ public class AuthController {
 
     @ApiLog
     @PublicV1PostMapping("/token")
-    public TokenVo createToken(@RequestBody AuthVo authVo) {
+    public TokenVo createToken(@Valid @RequestBody AuthVo authVo) {
         User user = userClient.getByUsername(authVo.getUsername());
         if (user == null) {
             throw new ApiException(ApiCode.USR_PWD_INVALID);

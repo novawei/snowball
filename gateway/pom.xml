@@ -20,6 +20,10 @@
         </dependency>
         <dependency>
             <groupId>com.nova</groupId>
+            <artifactId>config-serialization</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.nova</groupId>
             <artifactId>i18n</artifactId>
         </dependency>
         <dependency>

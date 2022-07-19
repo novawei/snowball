@@ -11,6 +11,7 @@ public enum ApiCode {
     // other business code defines
     USR_NOT_EXIST(100, "api.code.usr_not_exist"),
     USR_PWD_INVALID(101, "api.code.usr_pwd_invalid"),
+    USR_DUPLICATED(102, "api.code.usr_duplicated"),
 
     //
     UNAUTHORIZED(401, "api.code.unauthorized"),

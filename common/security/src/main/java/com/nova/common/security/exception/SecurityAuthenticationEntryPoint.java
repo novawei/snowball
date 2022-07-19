@@ -23,6 +23,7 @@ public class SecurityAuthenticationEntryPoint implements AuthenticationEntryPoin
         // Put exception into request scope (perhaps of use to a view)
         request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.UNAUTHORIZED.value());
         ApiException apiException = new ApiException(HttpStatus.UNAUTHORIZED, ApiCode.UNAUTHORIZED);
+        request.setAttribute(RequestDispatcher.ERROR_EXCEPTION, apiException);
         request.setAttribute(ApiException.ERROR_API_EXCEPTION, apiException);
         // Forward to /error
         request.getRequestDispatcher("/error").forward(request, response);
