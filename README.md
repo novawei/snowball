@@ -319,6 +319,86 @@ Sentinel控制配置文件/server/nacos/resources/DEFAULT_GROUP/gateway-sentinel
 ]
 ```
 
+### 登录认证和权限控制
+
+集成spring-security，位于common/security模块，可通过`WebSecurityConfiguration`修改配置，
+默认允许访问`/error`和`/auth/**`接口，请求头包含`X-Api-Origin: Fegin`的接口不进行认证拦截。
+
+禁用Session，采用JWT Token的方式进行认证。登录成功后，后续接口需要设置请求头`Authorization: (JWT TOKEN)`，
+前端可以通过localStorage存储。
+
+后端采用Redis缓存用户登录状态。
+
+```java
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.formLogin().disable()
+                .csrf().disable()
+                .httpBasic().disable()
+                .cors();
+
+        http.authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers("/error").permitAll()
+                .antMatchers("/auth/**").permitAll()
+                .requestMatchers(new RequestHeaderRequestMatcher(XApiOrigin.HEADER_NAME, XApiOrigin.TYPE_FEIGN)).permitAll()
+                .anyRequest().authenticated();
+
+        http.addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        http.exceptionHandling()
+                .authenticationEntryPoint(new SecurityAuthenticationEntryPoint())
+                .accessDeniedHandler(new SecurityAccessDeniedHandler());
+
+        // 关闭session
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+    // ...
+}
+```
+
+权限控制，需要在各个模块独立进行控制，例如`uac`模块的用户相关接口
+```java
+@RestController
+@RequestMapping("/uac/users")
+public class UserController {
+ 
+    @PublicV1GetMapping("/{id}")
+    public UserVo getVoById(@PathVariable("id") String id) {
+        User user = userService.getById(id);
+        return BeanUtils.convert(user, UserVo.class);
+    }
+
+    @ApiLog
+    @PreAuthorize("hasRole('ADMIN')")
+    @PublicV1PostMapping
+    public UserVo saveForAdmin(@Valid @RequestBody User user) {
+        if (BeanUtils.isNotNull(userService.getByUsername(user.getUsername()))) {
+            throw new ApiException(ApiCode.USR_DUPLICATED, user.getUsername());
+        }
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
+        userService.save(user);
+        return BeanUtils.convert(user, UserVo.class);
+    }
+
+}
+```
+如果接口没有权限，会返回如下所示的错误信息
+```json
+{
+    "timestamp": "2022-07-19T04:08:08.771+00:00",
+    "status": 403,
+    "error": "Forbidden",
+    "exception": "org.springframework.security.access.AccessDeniedException",
+    "message": "不允许访问",
+    "api_code": 403,
+    "api_message": "没有权限"
+}
+```
+
+
 ## 参考
 * [Piggy Metrics](https://github.com/sqshq/piggymetrics) - Piggy Metrics Github
 * [Pig](https://github.com/pig-mesh/pig) - Pig Github
