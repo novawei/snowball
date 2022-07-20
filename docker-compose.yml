@@ -68,6 +68,7 @@ services:
       - nacos-server
     command: /usr/local/bin/wait-for.sh -t 0 nacos-server:8848 -- /usr/local/bin/startup.sh
     environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - SEATA_CONFIG_NAME=file:/root/seata-config/registry
     volumes:
       - ./server/seata/config:/root/seata-config
@@ -112,6 +113,8 @@ services:
       - nacos-server
       - redis-server
     command: /usr/local/bin/wait-for.sh -t 0 nacos-server:8848 -- /usr/local/bin/startup.sh
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     restart: always
     volumes:
       - ./service/uac/uac-service/.tmp/logs:/app/logs
@@ -127,6 +130,8 @@ services:
       - nacos-server
       - redis-server
     command: /usr/local/bin/wait-for.sh -t 0 nacos-server:8848 -- /usr/local/bin/startup.sh
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     restart: always
     volumes:
       - ./service/order/order-service/.tmp/logs:/app/logs

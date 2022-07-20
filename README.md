@@ -16,6 +16,10 @@ SpringCloud Quick Start Template
 * [TODO]链路追踪，Zipkin
 
 ## 运行
+
+**注意**：MySQL Server的配置文件server/database/conf.d/mysql.cnf要求必须为只读，
+运行之前，需要将该文件设置为只读，否则配置会被忽略。
+
 ```shell script
 mvn clean install
 # add --build to rebuild images
