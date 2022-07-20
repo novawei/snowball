@@ -1,5 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.nova.common.config.serialization.SerializationAutoConfiguration
-
-
-

@@ -13,7 +13,6 @@
     </parent>
 
     <modules>
-        <module>config</module>
         <module>core</module>
         <module>mybatis</module>
         <module>i18n</module>
@@ -21,6 +20,7 @@
         <module>log</module>
         <module>seata</module>
         <module>security</module>
+        <module>serialization</module>
     </modules>
 
 </project>

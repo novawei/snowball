@@ -96,12 +96,7 @@
             <!--snowball artifacts version management-->
             <dependency>
                 <groupId>com.nova</groupId>
-                <artifactId>config</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.nova</groupId>
-                <artifactId>config-serialization</artifactId>
+                <artifactId>serialization</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
