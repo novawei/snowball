@@ -1,4 +1,4 @@
-package com.nova.common.config.serialization;
+package com.nova.common.serialization;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
